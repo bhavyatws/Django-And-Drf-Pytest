@@ -51,19 +51,21 @@ class StudentModelTestCase(TestCase): # we are not using Default django test cas
         student_last_result = Student.objects.last()
         assert student_last_result.get_score() == "Excellent"
 
-    @given(error_value=st.floats(min_value=101))
+    @given(error_value=st.floats(min_value=101,max_value=120))
     def test_grade_error(self,error_value):
         print(error_value)
         student1 = mixer.blend(Student,average_score=error_value)
         student_last_result = Student.objects.last()
         assert student_last_result.get_score() == "Error"
 
-    # @given(name=st.text())
-    # def test_slugify(self,name):
-    #     print(name)
-    #     student1 = mixer.blend(Student,first_name=name)
-    #     student_last_result = Student.objects.last()
-    #     assert len(student_last_result.username) == len(name)
+    # @given(name=st.characters())
+    def test_slugify(self):
+        # print(name)
+        student1 = mixer.blend(Student,first_name="Shahid Gujar")
+        print(student1.first_name)
+        student_last_result = Student.objects.last()
+        print(student_last_result.username)
+        assert len(student_last_result.username) == len(student1.first_name)
 
 class StudentModelUsingSetUpTestCase(TestCase):
     def setUp(self):
