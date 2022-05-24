@@ -66,20 +66,20 @@ class TestStudentAPIView(TestCase):
         assert Student.objects.count() == 1
     
     def test_student_detail(self):
-        student=mixer.blend(Student,first_name="james")
-        student2=mixer.blend(Student,first_name="sames")
-        url=reverse('student-detail-delete-api',kwargs={"pk":4})
-        url2=reverse('student-detail-delete-api',kwargs={"pk":5})
+        student=mixer.blend(Student,first_name="james",pk=1)
+        student2=mixer.blend(Student,first_name="sames",pk=2)
+        url=reverse('student-detail-delete-api',kwargs={"pk":1})
+        url2=reverse('student-detail-delete-api',kwargs={"pk":2})
         response=self.client.get(url)
         response2=self.client.get(url2)
         assert response.status_code == 200
         assert response2.status_code == 200
 
     def test_student_delete(self):
-        student=mixer.blend(Student,first_name="james")
-        student2=mixer.blend(Student,first_name="sames")
-        url=reverse('student-detail-delete-api',kwargs={"pk":2})
-        url2=reverse('student-detail-delete-api',kwargs={"pk":3})
+        student=mixer.blend(Student,pk=1,first_name="james") #mixer also generate unique pk so specify pk also
+        student2=mixer.blend(Student,first_name="sames",pk=2) #mixer also generate unique pk so specify pk to use further
+        url=reverse('student-detail-delete-api',kwargs={"pk":1}) 
+        url2=reverse('student-detail-delete-api',kwargs={"pk":2})
         response=self.client.delete(url)
         response2=self.client.delete(url2)
         assert Student.objects.count() == 0
