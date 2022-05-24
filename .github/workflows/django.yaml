@@ -28,3 +28,4 @@ jobs:
       - name: Run tests
         run: |
             pytest
+            pytest -v api/tests/test_views.py
