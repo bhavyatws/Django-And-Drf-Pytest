@@ -71,9 +71,9 @@ class TestStudentAPIView(TestCase):
         url=reverse('student-detail-delete-api',kwargs={"pk":4})
         url2=reverse('student-detail-delete-api',kwargs={"pk":5})
         response=self.client.get(url)
-        # response2=self.client.get(url2)
+        response2=self.client.get(url2)
         assert response.status_code == 200
-        # assert response2.status_code == 200
+        assert response2.status_code == 200
 
     def test_student_delete(self):
         student=mixer.blend(Student,first_name="james")

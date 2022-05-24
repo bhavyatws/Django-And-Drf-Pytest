@@ -36,3 +36,6 @@ jobs:
       - name: Run tests
         run: |
             pytest -v api/tests/test_views.py
+      - name: Run tests
+        run: |
+            pytest -v api/tests/test_views.py
