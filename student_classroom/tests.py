@@ -11,12 +11,12 @@ from hypothesis import strategies as st,given
 """Changing AssertEqual to Assert""" 
 
 class StudentModelTestCase(TestCase): # we are not using Default django test case no more
-    # def test_add_a_plus_b(self):  # function name should always from test
-    #     a = 1
-    #     b = 2
-    #     c = a + b
-    #     # self.assertEqual(c, 3)
-    #     assert c==3
+    def test_add_a_plus_b(self):  # function name should always from test
+        a = 1
+        b = 2
+        c = a + b
+        # self.assertEqual(c, 3)
+        assert c==3
 
     def test_student_can_be_created(self):
         student1 = Student.objects.create(
@@ -51,12 +51,12 @@ class StudentModelTestCase(TestCase): # we are not using Default django test cas
         student_last_result = Student.objects.last()
         assert student_last_result.get_score() == "Excellent"
 
-    # @given(error_value=st.floats(min_value=101))
-    # def test_grade_error(self,error_value):
-    #     print(error_value)
-    #     student1 = mixer.blend(Student,average_score=error_value)
-    #     student_last_result = Student.objects.last()
-    #     assert student_last_result.get_score() == "Error"
+    @given(error_value=st.floats(min_value=101))
+    def test_grade_error(self,error_value):
+        print(error_value)
+        student1 = mixer.blend(Student,average_score=error_value)
+        student_last_result = Student.objects.last()
+        assert student_last_result.get_score() == "Error"
 
     # @given(name=st.text())
     # def test_slugify(self,name):

@@ -17,22 +17,22 @@ class TestStudentAPIView(TestCase):
     def setUp(self):
         self.client=APIClient()
         #method 1 to get token
-        # self.our_user=User.objects.create_user(username="testuser",password="shahid@grg")
-        # self.token=Token.objects.create(user=self.our_user)
-        # print(self.token.key,"token")
-        # print("client",self.client)
-        # self.client.credentials(HTTP_AUTHORIZATION = "Token " + self.token.key)
+        self.our_user=User.objects.create_user(username="testuser",password="shahid@grg")
+        self.token=Token.objects.create(user=self.our_user)
+        print(self.token.key,"token")
+        print("client",self.client)
+        self.client.credentials(HTTP_AUTHORIZATION = "Token " + self.token.key)
 
         #method 2 to get token from url
-        """This is second method to get token using url"""
-        our_user=User.objects.create_user(username="testuser", password="shahid@grg")
+        # """This is second method to get token using url"""
+        # our_user=User.objects.create_user(username="testuser", password="shahid@grg")
         
-        data={"username":"testuser","password":"shahid@grg"}
-        self.url=reverse('api-auth-token')
-        response=self.client.post(self.url,data=data)
-        self.token = response.data['token']
-        print(self.token)
-        self.client.credentials(HTTP_AUTHORIZATION = "Token " + self.token)
+        # data={"username":"testuser","password":"shahid@grg"}
+        # self.url=reverse('api-auth-token')
+        # response=self.client.post(self.url,data=data)
+        # self.token = response.data['token']
+        # print(self.token)
+        # self.client.credentials(HTTP_AUTHORIZATION = "Token " + self.token)
     
     def test_student_list_api(self):
         
