@@ -11,18 +11,15 @@ on:
 jobs:
   simple_build:
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_DATABASE: drfpytest
-          MYSQL_USER: root
-          MYSQL_PASSWORD: root
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    env:
+      DB_DATABASE: test_db
+      DB_USER: root
+      DB_PASSWORD: root
     steps:
+      - name: Set up MySQL
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout code
         uses: actions/checkout@v2
